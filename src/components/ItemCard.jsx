@@ -11,11 +11,11 @@ import { addToCart } from '../redux/cartSlice'
 import { updateQuantity } from '../redux/stocksSlice'
 
 const image_container = css`
-    width: 130px; /* 이미지 컨테이너의 너비를 조정합니다. */
-    height: 90px; /* 이미지 컨테이너의 높이를 조정합니다. */
-    border-radius: 50%; /* 둥근 형태로 이미지 컨테이너를 만듭니다. */
-    //border: 2px dashed fff//rgba(4, 170, 109, 0.45); /* 점선 테두리를 추가하고 색상의 투명도를 조절합니다. */
-    overflow: hidden; /* 이미지 영역을 컨테이너로 감쌉니다. */
+    width: 130px; 
+    height: 90px;
+    border-radius: 50%;
+    //border: 2px dashed fff//rgba(4, 170, 109, 0.45); 
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,18 +23,18 @@ const image_container = css`
 `
 
 const image_style = css`
-    width: 100%; /* 이미지의 너비를 100%로 설정합니다. */
-    height: auto; /* 이미지의 높이를 자동으로 조정합니다. */
+    width: 100%; 
+    height: auto;
 `
 const card_style = css`
     padding: 20px;
-    margin: 10px; /* 모든 카드 간격 추가 */
+    margin: 10px;
     border-radius: 10px;
     width: 415px;
-    border: 1px solid #ddd; /* 테두리 스타일 */
-    background-color: #fff; /* 배경색 */
-    font-family: 'Gill Sans', sans-serif; /* 글꼴 변경 */
-    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1); /* 그림자 효과 */
+    border: 1px solid #ddd;
+    background-color: #fff; 
+    font-family: 'Gill Sans', sans-serif; 
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
     font-size: 12px;
 `
 const font_p1 = css`
@@ -43,7 +43,7 @@ const font_p1 = css`
 
 const font_p2 = css`
     font-size: 16px;
-    text-align: right; /* 텍스트를 오른쪽으로 정렬합니다. */
+    text-align: right;
 `
 
 const selected_unit = css`
@@ -70,8 +70,7 @@ const input_field = css`
     border: 1px solid #ccc;
 
     &::placeholder {
-        /* placeholder의 글꼴을 변경합니다. */
-        font-family: 'Your Font', sans-serif; /* 여기에 사용할 글꼴을 지정하세요 */
+        font-family: 'Your Font', sans-serif;
     }
 `
 
@@ -83,7 +82,7 @@ export default function ItemCard(props) {
     const itemslist = useSelector(selectItems)
 
     function showAlert(message) {
-        alert(message); // 브라우저의 내장된 alert 함수를 사용하여 알람을 띄웁니다.
+        alert(message);
     }
 
     
@@ -99,7 +98,7 @@ export default function ItemCard(props) {
 
         if (quantity > founditem.inStock) {
             showAlert("Too much!");
-            return; //  에러가 발생하면 함수를 여기서 종료합니다.
+            return;
         }
         // 장바구니에 추가하는 로직
 
@@ -128,15 +127,13 @@ export default function ItemCard(props) {
                     ) : (
                         <p css={{fontWeight: "bold"}}>In-Stock {inStock}</p>
                     )}
-                    {/* 폼을 사용하여 수량 입력 */}
                     <form onSubmit={(e) => handleSubmit(e, id)}>
                         <input
                             type="number"
-                            value={quantity.toString()} // 숫자를 문자열로 변환하여 전달
+                            value={quantity.toString()}
                             onChange={(e) => setQuantity(parseInt(e.target.value))}
                             css={input_field}
                         />
-                        {/* 수량이 0이면 제출되지 않도록 버튼을 비활성화 */}
                         <button css={add_button} type="submit" disabled={quantity === 0 || isNaN(quantity)}>Add to Cart</button>
                     </form>
                 </div>

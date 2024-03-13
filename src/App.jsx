@@ -1,7 +1,7 @@
+import { Header } from "./components/Header"
+
 export default function App() {
     return (
-        <h1>
-            Final project
-        </h1>
+        <Header />
     )
 }

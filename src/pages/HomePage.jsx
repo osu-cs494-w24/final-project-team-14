@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
-import { useSearchParams, NavLink } from 'react-router-dom'
-//import Spinner from '../components/Spinner.jsx'
-//import ErrorContainer from '../components/ErrorContainer.jsx'
-//import WeatherCard from '../components/WeatherCard.jsx'
-
 export default function Home() {
-    return (
-        <div>
-            <h2>This is Final project to team 14</h2>
-        </div>
-    )
 
+    return (
+        <>
+            <h2>This is Final project to team 14</h2>
+            <iframe
+                width="600"
+                height="450"
+                loading="lazy"
+                allowFullScreen
+                src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&q=City+Hall,New+York,NY`}
+            ></iframe>
+        </>
+    )
 }

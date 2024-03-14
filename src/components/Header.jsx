@@ -9,7 +9,7 @@ export function Header(props) {
 
                 </div>
                 <div id="navigation-container">
-                    <NavLink to="/account"><img id="account-image" src="/public/useraccount.png"></img></NavLink>
+                    <NavLink to="/account"><img id="account-image" src="useraccount.png"></img></NavLink>
                 </div>
             </div>
         </>

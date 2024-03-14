@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import Root from './pages/Root'
-import Home from './pages/HomePage'
+import Home from './pages/Home'
 import App from './App'
 import './index.css'
 
@@ -17,9 +17,9 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        /* children: [
-            { path: "", element: <Home />},
-        ] */
+        children: [
+            { index: true, element: <Home /> },
+        ] 
     }
 ])
 

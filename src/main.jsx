@@ -6,6 +6,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Home from './pages/Home'
 import App from './App'
 import Search from './pages/Search'
+import Event from './pages/Event'
+import Feed from './pages/Feed'
+import ErrorPage from './pages/ErrorPage'
+
 import './index.css'
 
 //import store from './redux/store'
@@ -16,11 +20,12 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        errorElement: <App><ErrorPage /></App>,
         children: [
             { index: true, element: <Home /> },
-            {
-                path: "search", element: <Search />
-            }
+            { path: "search", element: <Search /> },
+            { path: "events", element: <Feed /> },
+            { path: "events/:eventID", element: <Event /> }
         ]
     }
 ])

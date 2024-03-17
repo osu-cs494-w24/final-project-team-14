@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 export default function ResultCard(props) {
     return (
         <div className="result-card-container">
@@ -6,7 +8,13 @@ export default function ResultCard(props) {
             </div>
             <div className="result-content-container">
                 <div className="result-title-container">
-                    <h2 className="result-title">{props.name}</h2>
+
+                    <NavLink to={`/events/${props.id}`}>
+                        {console.log("== props.id: ", props.id)}
+                        
+                        <h2 className="result-title">{props.name}</h2>
+                    </NavLink>
+
                 </div>
                 <div className="result-details-container">
                     <img src="/public/map-pin.png" alt="pin" />

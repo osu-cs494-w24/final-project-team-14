@@ -3,8 +3,32 @@
         "id": 1, 
         "name": "Hiking Club Meeting", 
         "location": "Dixon Recreation Center", 
-        "date": 450, 
+        "date": "Saturday, March 23", 
         "time": "2:00 pm", 
-        "photoUrl": "/public/osu.jpg"
+        "url": "/public/osu.jpg"
+    },
+    {
+        "id": 2, 
+        "name": "Running Club Practice", 
+        "location": "Student IM Field", 
+        "date": "Monday, March 25", 
+        "time": "4:15 pm", 
+        "url": "/public/osu.jpg"
+    },
+    {
+        "id": 3, 
+        "name": "Apple Pi Rush Event", 
+        "location": "Student Legacy Park", 
+        "date": "Tuesday, March 26", 
+        "time": "5:00 pm", 
+        "url": "/public/osu.jpg"
+    },
+    {
+        "id": 4, 
+        "name": "Hiking Club Meeting", 
+        "location": "Dixon Recreation Center", 
+        "date": "Saturday, March 23", 
+        "time": "2:00 pm", 
+        "url": "/public/osu.jpg"
     }
   ]  

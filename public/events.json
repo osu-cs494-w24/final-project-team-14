@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1, 
+        "name": "Hiking Club Meeting", 
+        "location": "Dixon Recreation Center", 
+        "date": 450, 
+        "time": "2:00 pm", 
+        "photoUrl": "/public/osu.jpg"
+    }
+  ]  

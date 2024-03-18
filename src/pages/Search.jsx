@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ResultCard from "../components/ResultCard"
 
 export default function Search() {
-    const [ events, setEvents ] = useState([])
+    const [events, setEvents] = useState([])
 
     // Used for obtaining the JSON data locally. May need to change for when we get data from Database
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function Search() {
         };
         fetchData();
     }, []);
-    
+
     return (
         <>
             <div className="search-container">
@@ -34,7 +34,7 @@ export default function Search() {
             <div className="results-container">
                 {/* Code for mapping the JSON data to a bunch of ResultCards */}
                 {events.map((event, index) => (
-                    <ResultCard 
+                    <ResultCard
                         key={index}
                         id={event.id}
                         url={event.url}
@@ -42,7 +42,7 @@ export default function Search() {
                         location={event.location}
                         date={event.date}
                         time={event.time}
-                        />
+                    />
                 ))}
 
                 {/* <ResultCard url="/public/osu.jpg" name="Hiking Club Meeting" location="Dixon Rec Center" date="Saturday, March 23" time="2:00 pm" />

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -51,36 +51,67 @@ const SearchBarInput = styled.input`
 `
 
 export default function Home() {
-    const [ text, setText ] = useState("")
-    const [ query, setQuery ] = useState("Oregon+State+University,Corvallis,OR")
+    const [text, setText] = useState("")
+    const [query, setQuery] = useState("Oregon+State+University,Corvallis,OR")
+    const eventLocations = [
+        { latitude: 44.53, longitude: -123.2 },
+        { latitude: 44.55, longitude: -123.3 },
+    ]
+
+    useEffect(() => {
+        const initMap = () => {
+            const mapOptions = {
+                center: { lat: 44.5646, lng: -123.262 }, // Default center (New York City coordinates)
+                zoom: 10, // Default zoom level
+            }
+            const map = new window.google.maps.Map(document.getElementById('map'), mapOptions)
+
+            // Add event markers
+            eventLocations.forEach((location, index) => {
+                const marker = new window.google.maps.Marker({
+                    position: { lat: location.latitude, lng: location.longitude },
+                    map,
+                    title: `Event ${index + 1}`,
+                })
+            })
+        }
+
+        // Load Google Maps API script
+        const script = document.createElement('script')
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&callback=initMap`
+        script.defer = true
+        script.async = true
+        script.onload = initMap
+
+        document.head.appendChild(script)
+
+        // Clean up function
+        return () => {
+            document.head.removeChild(script)
+        }
+    }, [eventLocations])
 
     return (
         <MapContainer>
             <form onSubmit={(e) => {
                 e.preventDefault()
-                console.log("Place query: ",text)
+                console.log("Place query: ", text)
                 setQuery(text)
             }}>
                 <SearchBarContainer>
 
-                    <MagnifyingGlassIcon icon={faMagnifyingGlass}/>
+                    <MagnifyingGlassIcon icon={faMagnifyingGlass} />
                     <SearchBarInput
-                        value={text} 
+                        value={text}
                         placeholder={`Enter a city or zipcode...`}
                         onChange={(e) => setText(e.target.value)}>
                     </SearchBarInput>
 
                 </SearchBarContainer>
-            
-            
+
+
             </form>
-            <iframe
-                width="100%"
-                height="700"
-                loading="lazy"
-                allowFullScreen
-                src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&q=${query}`}
-            ></iframe>
+            <div id="map"></div>
         </MapContainer>
     )
 }

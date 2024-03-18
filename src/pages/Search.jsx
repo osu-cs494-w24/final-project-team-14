@@ -6,6 +6,8 @@ import { fetchEvents } from '../redux/eventsSlice'
 import ResultCard from "../components/ResultCard"
 
 export default function Search() {
+    const [query, setQuery] = useState("")
+
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)
 
@@ -16,14 +18,19 @@ export default function Search() {
     return (
         <>
             <div className="search-container">
-                <form>
-                    <input type="text" className="search-input" placeholder="Search"></input>
-                    <button className="search-button" >Search</button>
+            <form onSubmit={e => {
+                    e.preventDefault()
+                }}>
+                    <input
+                        value={query}
+                        className="search-input"
+                        placeholder={`Enter an event...`}
+                        onChange={(e) => setQuery(e.target.value)} />
+                    <button type="submit" className="search-button">Search</button>
                 </form>
             </div>
-            <h1 className="query-name">Search Results for "Hiking"</h1>
             <div className="results-container">
-                {events.map((event) => (
+                {events.filter(event => query === "" || event.name.toLowerCase().includes(query.toLowerCase())).map((event) => (
                     <ResultCard 
                         key={event.id}
                         id={event.id}

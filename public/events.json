@@ -5,7 +5,7 @@
         "location": "Dixon Recreation Center", 
         "date": "Saturday, March 23", 
         "time": "2:00 pm", 
-        "url": "/public/osu.jpg"
+        "url": "/osu.jpg"
     },
     {
         "id": 2, 
@@ -13,7 +13,7 @@
         "location": "Student IM Field", 
         "date": "Monday, March 25", 
         "time": "4:15 pm", 
-        "url": "/public/osu.jpg"
+        "url": "/osu.jpg"
     },
     {
         "id": 3, 
@@ -21,7 +21,7 @@
         "location": "Student Legacy Park", 
         "date": "Tuesday, March 26", 
         "time": "5:00 pm", 
-        "url": "/public/osu.jpg"
+        "url": "/osu.jpg"
     },
     {
         "id": 4, 
@@ -29,6 +29,6 @@
         "location": "Dixon Recreation Center", 
         "date": "Saturday, March 23", 
         "time": "2:00 pm", 
-        "url": "/public/osu.jpg"
+        "url": "/osu.jpg"
     }
   ]  

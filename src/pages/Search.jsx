@@ -30,7 +30,7 @@ export default function Search() {
                 </form>
             </div>
             <div className="results-container">
-                {events.filter(event => query === "" || event.name.toLowerCase().includes(query.toLowerCase())).map((event) => (
+            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
                     <ResultCard 
                         key={event.id}
                         id={event.id}

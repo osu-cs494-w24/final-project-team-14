@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import eventsReducer from './eventsSlice'
+
+
 const store = configureStore({
-    // one argument : option
     reducer: { 
+        events: eventsReducer
     }
 })
 

@@ -50,6 +50,32 @@ const SearchBarInput = styled.input`
     }
 `
 
+const AddEventButton = styled.button`
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  height: 60px;
+  width: 60px;
+  border: none;
+  border-radius: 30px;
+  font-size: 30px;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  img {
+    height: 40px;
+  }
+  &:hover,
+  &:focus {
+    right: 27px;
+    bottom: 27px;
+    height: 66px;
+    width: 66px;
+    border-radius: 33px;
+    font-size: 36px;
+  }
+`
+
 export default function Home() {
     const [ text, setText ] = useState("")
     const [ query, setQuery ] = useState("Oregon+State+University,Corvallis,OR")
@@ -71,8 +97,6 @@ export default function Home() {
                     </SearchBarInput>
 
                 </SearchBarContainer>
-            
-            
             </form>
             <iframe
                 width="100%"
@@ -81,6 +105,9 @@ export default function Home() {
                 allowFullScreen
                 src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&q=${query}`}
             ></iframe>
+            <AddEventButton>
+                <img src="/map-pin.png" />
+            </AddEventButton>
         </MapContainer>
     )
 }

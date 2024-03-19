@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { css } from '@emotion/react'
+import { useSelector, useDispatch } from "react-redux"
+import { fetchEvents } from '../redux/eventsSlice'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -58,20 +59,31 @@ export default function Home() {
         { latitude: 44.55, longitude: -123.3 },
     ]
 
+    const dispatch = useDispatch()
+    const events = useSelector((state) => state.events.events)
+    console.log("Events: ", events)
+
+    useEffect(() => {
+        dispatch(fetchEvents())
+    }, [dispatch])
+
     useEffect(() => {
         const initMap = () => {
             const mapOptions = {
                 center: { lat: 44.5646, lng: -123.262 }, // Default center (New York City coordinates)
-                zoom: 10, // Default zoom level
+                zoom: 9, // Default zoom level
             }
             const map = new window.google.maps.Map(document.getElementById('map'), mapOptions)
 
             // Add event markers
-            eventLocations.forEach((location, index) => {
+            console.log("Adding Events...")
+            events.forEach((location, index) => {
+                console.log("location.lat: ", location.lat)
                 const marker = new window.google.maps.Marker({
-                    position: { lat: location.latitude, lng: location.longitude },
+                    animation: google.maps.Animation.DROP,
+                    position: { lat: parseFloat(location.lat), lng: parseFloat(location.long) },
                     map,
-                    title: `Event ${index + 1}`,
+                    title: location.name,
                 })
             })
         }
@@ -108,7 +120,6 @@ export default function Home() {
                     </SearchBarInput>
 
                 </SearchBarContainer>
-
 
             </form>
             <div id="map"></div>

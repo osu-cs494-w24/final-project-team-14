@@ -99,7 +99,7 @@ const EventForm = styled.form`
 
 export default function Home() {
     const [text, setText] = useState("")
-    const [query, setQuery] = useState("Oregon+State+University,Corvallis,OR")
+    const [showForm, setShowForm] = useState(false)
     const eventLocations = [
         { latitude: 44.53, longitude: -123.2 },
         { latitude: 44.55, longitude: -123.3 },
@@ -169,6 +169,19 @@ export default function Home() {
 
             </form>
             <div id="map"></div>
+            <AddEventButton onClick={() => setShowForm(!showForm)} >
+                <img src="/map-pin.png" />
+            </AddEventButton>
+            {showForm &&
+                <EventForm>
+                    <h2>Add New Event</h2>
+                    <label >Event Name: <input type="text" id="eventName" /></label>
+                    <label htmlFor="eventLocation">Location: <input type="text" id="eventLocation" /></label>
+                    <label htmlFor="eventDate">Date: <input type="date" id="eventDate" /></label>
+                    <label htmlFor="eventTime">Time: <input type="time" id="eventTime" /></label>
+                    <button onClick={() => setShowForm(false)}>Close</button>
+                </EventForm>
+            }
         </MapContainer>
     )
 }

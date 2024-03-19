@@ -12,6 +12,7 @@ import { loginUser, logoutUser } from '../redux/userSlice'
 export default function Search() {
     const [ text, setText ] = useState("")
     const [query, setQuery] = useState("")
+
     const events = useSelector((state) => state.events.events)
 
     // current user

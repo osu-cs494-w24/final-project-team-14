@@ -18,8 +18,6 @@ import ErrorPage from './pages/ErrorPage'
 
 import './index.css'
 
-import store from './redux/store'
-
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([

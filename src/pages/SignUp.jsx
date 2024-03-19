@@ -25,37 +25,35 @@ const generateState = async () => {
 
 const SignUp = () => {
     const dispatch = useDispatch();
-    const current_user = useSelector(selectUser)
+    const current_user = useSelector(selectUser);
     const [formData, setFormData] = useState({
         "email": "",
         "password": ""
-    })
+    });
+    const [loggedIn, setLoggedIn] = useState(false);
 
-    const [ islogin, setIsLogin] = useState(false)
-    const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
-
-    function handleCallbackResponse (response) {
-        localStorage.setItem("token", response.credential)
-        setLoggedIn(true)
-    }
+    useEffect(() => {
+        // 페이지가 로드될 때 로컬 스토리지에서 로그인 상태 확인
+        const token = localStorage.getItem("token");
+        if (token) {
+            setLoggedIn(true);
+        }
+    }, []);
 
     const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value})
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const handleLogout = () => {
-        setIsLogin(false)
-        localStorage.clear("token")
-        setFormData({ "email": "", "password": "" })
-        dispatch(logoutUser({}))
+        setLoggedIn(false);
+        localStorage.removeItem("token");
+        setFormData({ "email": "", "password": "" });
+        dispatch(logoutUser({}));
     }
-
-
-    
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("http://localhost:8000/login", {
+        fetch("https://lucky-outpost-400621.uw.r.appspot.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -66,35 +64,31 @@ const SignUp = () => {
         .then(data => {
             if (data.success) {
                 setLoggedIn(true);
-                setIsLogin(true)
-                console.log("==", loggedIn)
-                dispatch(loginUser({"user": formData.email}));
-
+                dispatch(loginUser({ "user": formData.email }));
+                localStorage.setItem("token", "YOUR_TOKEN_HERE"); // 서버에서 전달받은 토큰 저장
             } else {
                 console.error("Login failed");
-                // 로그인 실패에 대한 처리를 추가할 수 있습니다.
             }
         })
         .catch(error => {
             console.error("Error during login:", error);
-            // 에러 발생 시 처리를 추가할 수 있습니다.
         });
     };
 
     return (
         <>
-            {islogin ? (
-                    <div className="login-page">
-                        <p>email: {formData.email}</p>
-                        <button onClick={handleLogout}>Logout</button>
-                    </div>
+            {loggedIn ? (
+                <div className="login-page">
+                    <p>email: {current_user.user}</p>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
             ) : (
                 <div className="login-page">
                     <form className="login-form" onSubmit={handleSubmit}>
                         <label>Email</label>
                         <input type="email" name="email" value={formData.email} onChange={handleChange} />
                         <label>Password</label>
-                        <input type="password" name="password" value={formData.password} onChange={handleChange}/>
+                        <input type="password" name="password" value={formData.password} onChange={handleChange} />
                         <button>Login</button>
                     </form>
                 </div>

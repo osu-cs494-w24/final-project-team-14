@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-
 import { fetchEvents } from '../redux/eventsSlice'
-
 import ResultCard from "../components/ResultCard"
 
+// add user
+import { selectUser} from '../redux/userSlice'
+import { loginUser, logoutUser } from '../redux/userSlice'
+
+
+
 export default function Search() {
-    const [ events, setEvents ] = useState([])
     const [ text, setText ] = useState("")
     const [query, setQuery] = useState("")
-
-    const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)
+
+    // current user
+    const dispatch = useDispatch()
+    const current_user = useSelector(selectUser)
+    
 
     useEffect(() => {
         dispatch(fetchEvents())

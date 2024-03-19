@@ -76,9 +76,30 @@ const AddEventButton = styled.button`
   }
 `
 
+const EventForm = styled.form`
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    label {
+        margin-left: 0.5rem;
+    }
+    input {
+        width: 100px;
+    }
+`
+
 export default function Home() {
     const [ text, setText ] = useState("")
     const [ query, setQuery ] = useState("Oregon+State+University,Corvallis,OR")
+    const [showForm, setShowForm] = useState(false)
 
     return (
         <MapContainer>
@@ -105,9 +126,19 @@ export default function Home() {
                 allowFullScreen
                 src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&q=${query}`}
             ></iframe>
-            <AddEventButton>
+            <AddEventButton onClick={() => setShowForm(!showForm)} >
                 <img src="/map-pin.png" />
             </AddEventButton>
+            {showForm &&
+                <EventForm>
+                    <h2>Add New Event</h2>
+                    <label >Event Name: <input type="text" id="eventName" /></label>
+                    <label htmlFor="eventLocation">Location: <input type="text" id="eventLocation" /></label>
+                    <label htmlFor="eventDate">Date: <input type="date" id="eventDate" /></label>
+                    <label htmlFor="eventTime">Time: <input type="time" id="eventTime" /></label>
+                    <button onClick={() => setShowForm(false)}>Close</button>
+                </EventForm>
+            }
         </MapContainer>
     )
 }

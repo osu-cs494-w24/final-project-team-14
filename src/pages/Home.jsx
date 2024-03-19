@@ -4,6 +4,8 @@ import { fetchEvents } from '../redux/eventsSlice'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
+import Modal from '../components/Modal'
 
 const MapContainer = styled.div`
     text-align: center;
@@ -100,10 +102,16 @@ const EventForm = styled.form`
 export default function Home() {
     const [text, setText] = useState("")
     const [query, setQuery] = useState("Oregon+State+University,Corvallis,OR")
-    const eventLocations = [
-        { latitude: 44.53, longitude: -123.2 },
-        { latitude: 44.55, longitude: -123.3 },
-    ]
+    const [eventName, setEventName] = useState("")
+    const [eventLocation, setEventLocation] = useState("")
+    const [eventURL, setEventURL] = useState("")
+    const [eventTime, setEventTime] = useState("")
+    const [eventDate, setEventDate] = useState("")
+    const [renderModal, setRenderModal] = useState(false)
+    const toggleModal = () => {
+        setRenderModal(!renderModal)
+    }
+    const mapCenter = { lat: 44.5646, lng: -123.262 }
 
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)
@@ -113,41 +121,7 @@ export default function Home() {
         dispatch(fetchEvents())
     }, [dispatch])
 
-    useEffect(() => {
-        const initMap = () => {
-            const mapOptions = {
-                center: { lat: 44.5646, lng: -123.262 }, // Default center (New York City coordinates)
-                zoom: 9, // Default zoom level
-            }
-            const map = new window.google.maps.Map(document.getElementById('map'), mapOptions)
 
-            // Add event markers
-            console.log("Adding Events...")
-            events.forEach((location, index) => {
-                console.log("location.lat: ", location.lat)
-                const marker = new window.google.maps.Marker({
-                    animation: google.maps.Animation.DROP,
-                    position: { lat: parseFloat(location.lat), lng: parseFloat(location.long) },
-                    map,
-                    title: location.name,
-                })
-            })
-        }
-
-        // Load Google Maps API script
-        const script = document.createElement('script')
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLEMAPS_KEY}&callback=initMap`
-        script.defer = true
-        script.async = true
-        script.onload = initMap
-
-        document.head.appendChild(script)
-
-        // Clean up function
-        return () => {
-            document.head.removeChild(script)
-        }
-    }, [eventLocations])
 
     return (
         <MapContainer>
@@ -168,7 +142,25 @@ export default function Home() {
                 </SearchBarContainer>
 
             </form>
-            <div id="map"></div>
+            <div id="map">
+                <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
+                    <Map center={mapCenter} zoom={9}>
+                        {events.map((location) => (
+                            <Marker key={location.id} position={{ lat: parseFloat(location.lat), lng: parseFloat(location.long) }} onClick={(event) => {
+                                setEventDate(location.date)
+                                setEventLocation(location.location)
+                                setEventTime(location.time)
+                                setEventName(location.name)
+                                setEventURL(location.url)
+                                setRenderModal(true)
+                            }} />
+                        ))}
+                    </Map>
+                </APIProvider>
+            </div>
+            <Modal render={renderModal} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
+
         </MapContainer>
+
     )
 }

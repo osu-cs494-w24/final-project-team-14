@@ -1,6 +1,11 @@
 import { NavLink } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser} from '../redux/userSlice'
+import { loginUser, logoutUser } from '../redux/userSlice'
 
 export default function ResultCard(props) {
+    const dispatch = useDispatch();
+    const current_user = useSelector(selectUser)
     return (
         <div className="result-card-container">
             <div className="result-image-container">

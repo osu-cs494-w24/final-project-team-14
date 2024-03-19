@@ -121,8 +121,6 @@ export default function Home() {
         dispatch(fetchEvents())
     }, [dispatch])
 
-
-
     return (
         <MapContainer>
             <form onSubmit={(e) => {
@@ -159,7 +157,6 @@ export default function Home() {
                 </APIProvider>
             </div>
             <Modal render={renderModal} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
-
         </MapContainer>
 
     )

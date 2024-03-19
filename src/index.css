@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
+
 
 body {
     margin: 0;
@@ -49,20 +51,16 @@ html {
     justify-content: flex-end;
 }
 
-<<<<<<< Updated upstream
-=======
 #navigation-container img {
-    margin-bottom: 20px;
-    /* 이미지 아래 여백 설정 */
+    margin-bottom: 20px; /* 이미지 아래 여백 설정 */
 }
 
 #navigation-container a {
     width: 60px;
-    height: 70%;
+    height: 70%;    
     max-height: 60%;
 }
 
->>>>>>> Stashed changes
 #explore-button {
     display: flex;
     justify-content: center;
@@ -318,38 +316,35 @@ html {
 }
 
 .modal-image {
-<<<<<<< Updated upstream
-=======
     max-height: 80%;
 }
 
 /* login page */
 .login-page {
-    display: inline-block;
-    padding: 1rem;
+  display: inline-block;
+  padding: 1rem;
 }
 
-.logout {
-    border: 1px solid #ababab;
-    text-align: center;
-    font-size: 1.5rem;
-    background-color: rgb(184, 184, 184);
-    border-radius: .5rem;
-
+.logout{
+  border: 1px solid #ababab;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: rgb(184, 184, 184);
+  border-radius: .5rem;
+  
 }
 
 .logout:hover {
-    background-color: #2b7bbe;
-    color: white;
-    cursor: pointer;
+  background-color: #2b7bbe;
+  color: white;
+  cursor: pointer;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
 }
-
 /* login page */
 
 
@@ -427,7 +422,6 @@ html {
 }
 
 .result-image {
->>>>>>> Stashed changes
     max-width: 90%;
     max-height: 90%;
 }
@@ -462,8 +456,6 @@ html {
 
 #modal-cancel:hover {
     background-color: #eee;
-<<<<<<< Updated upstream
-=======
 }
 
 .result-content-container {
@@ -503,5 +495,5 @@ html {
     font-size: 12px;
     font-weight: 100;
     margin: 2px 5px 2px 2px;
->>>>>>> Stashed changes
 }
+

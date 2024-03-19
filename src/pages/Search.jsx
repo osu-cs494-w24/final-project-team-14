@@ -6,9 +6,8 @@ import { fetchEvents } from '../redux/eventsSlice'
 import ResultCard from "../components/ResultCard"
 
 export default function Search() {
-    const [ events, setEvents ] = useState([])
     const [ text, setText ] = useState("")
-    const [query, setQuery] = useState("")
+    const [ query, setQuery ] = useState("")
 
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)

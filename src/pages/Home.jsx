@@ -4,6 +4,8 @@ import { fetchEvents } from '../redux/eventsSlice'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps'
+import Modal from '../components/Modal'
 
 const MapContainer = styled.div`
     text-align: center;
@@ -105,23 +107,6 @@ export default function Home() {
         { latitude: 44.55, longitude: -123.3 },
     ]
 
-    const [formData, setFormData] = useState({
-        eventName: '',
-        eventLocation: '',
-        eventDate: '',
-        eventTime: '',
-        eventLon: '',
-        eventLat: ''
-    });
-
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({
-            ...formData,
-            [id]: value
-        });
-    };
-
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)
 
@@ -129,32 +114,6 @@ export default function Home() {
         dispatch(fetchEvents())
     }, [dispatch])
 
-
-    const handleSubmit = useCallback(() => {
-        console.log("==여기가 출력되어야함formdata", JSON.stringify(formData));
-        fetch('https://lucky-outpost-400621.uw.r.appspot.com/add-event', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => {
-            if (response.ok) {
-                // POST 성공 처리
-                console.log('Event added successfully');
-            } else {
-                // POST 실패 처리
-                console.error('Failed to add event');
-            }
-        })
-        .catch(error => {
-            console.error('Error while adding event:', error);
-        });
-    }, []);
-
-    
-    
     useEffect(() => {
         const initMap = () => {
             const mapOptions = {
@@ -164,9 +123,9 @@ export default function Home() {
             const map = new window.google.maps.Map(document.getElementById('map'), mapOptions)
 
             // Add event markers
-            //console.log("Adding Events...")
+            console.log("Adding Events...")
             events.forEach((location, index) => {
-                //console.log("location.lat: ", location.lat)
+                console.log("location.lat: ", location.lat)
                 const marker = new window.google.maps.Marker({
                     animation: google.maps.Animation.DROP,
                     position: { lat: parseFloat(location.lat), lng: parseFloat(location.long) },
@@ -175,7 +134,6 @@ export default function Home() {
                 })
             })
         }
-    
 
         // Load Google Maps API script
         const script = document.createElement('script')
@@ -218,16 +176,14 @@ export default function Home() {
             {showForm &&
                 <EventForm>
                     <h2>Add New Event</h2>
-                    <label>Event Name: <input type="text" id="eventName" value={formData.eventName} onChange={handleChange} /></label>
-                    <label htmlFor="eventLocation">Location: <input type="text" id="eventLocation" value={formData.eventLocation} onChange={handleChange} /></label>
-                    <label htmlFor="eventDate">Date: <input type="date" id="eventDate" value={formData.eventDate} onChange={handleChange} /></label>
-                    <label htmlFor="eventTime">Time: <input type="time" id="eventTime" value={formData.eventTime} onChange={handleChange} /></label>
-                    <label htmlFor="eventLat">Lat: <input type="number" id="eventLat" step="any" value={formData.eventLat} onChange={handleChange} /></label>
-                    <label htmlFor="eventLon">Lon: <input type="number" id="eventLon" step="any" value={formData.eventLon} onChange={handleChange} /></label>
+                    <label >Event Name: <input type="text" id="eventName" /></label>
+                    <label htmlFor="eventLocation">Location: <input type="text" id="eventLocation" /></label>
+                    <label htmlFor="eventDate">Date: <input type="date" id="eventDate" /></label>
+                    <label htmlFor="eventTime">Time: <input type="time" id="eventTime" /></label>
                     <button onClick={() => setShowForm(false)}>Close</button>
-                    <button onClick={handleSubmit}>Submit</button> {/* 수정된 부분 */}
                 </EventForm>
             }
         </MapContainer>
+
     )
 }

@@ -13,8 +13,8 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState: {
     status: 'idle',
-    error: null,
-    events: []
+    error: null, 
+    events: [] 
   },
   reducers: {
     addEvent(state, action) {

@@ -1,45 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+
+import { fetchEvents } from '../redux/eventsSlice'
 
 import ResultCard from "../components/ResultCard"
 
 export default function Search() {
     const [ events, setEvents ] = useState([])
     const [ text, setText ] = useState("")
+    const [query, setQuery] = useState("")
 
-    // Used for obtaining the JSON data locally. May need to change for when we get data from Database
+    const dispatch = useDispatch()
+    const events = useSelector((state) => state.events.events)
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/events.json')
-                if (!response.ok) {
-                    throw new Error('Failed to fetch data')
-                }
-                const data = await response.json()
-                setEvents(data)
-            } catch (err) {
-                console.error('Error fetching data:', err)
-            }
-        };
-        fetchData()
-    }, [])
+        dispatch(fetchEvents())
+    }, [dispatch])
     
     return (
         <>
             <div className="search-container">
-                <form onSubmit={e => {
+            <form onSubmit={e => {
                     e.preventDefault()
-                 }}>
-                    <input 
-                        value={text}  
-                        className="search-input" 
+                }}>
+                    <input
+                        value={query}
+                        className="search-input"
                         placeholder={`Enter an event...`}
-                        onChange={(e) => setText(e.target.value)} />
+                        onChange={(e) => setQuery(e.target.value)} />
+                    <button type="submit" className="search-button">Search</button>
                 </form>
             </div>
             <div className="results-container">
-                {events.filter(event => text === "" || event.name.toLowerCase().includes(text.toLowerCase())).map((event, index) => (
+            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
                     <ResultCard 
-                        key={index}
+                        key={event.id}
                         id={event.id}
                         url={event.url}
                         name={event.name}

@@ -24,10 +24,10 @@ export default function Modal({ name, url, id, location, date, time, onClose, re
                             <img className="modal-image" src={url} alt="alt" />
                         </div>
                         <div className="result-content-container">
-                            <div className="result-title-container">
+                            <div className="modal-title-container">
 
-                                <NavLink to={`/events/${id}`}>
-                                    <h2 className="result-title">{name}</h2>
+                                <NavLink className="modal-link" to={`/events/${id}`}>
+                                    <h2 className="modal-title">{name}</h2>
                                 </NavLink>
 
                             </div>

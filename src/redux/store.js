@@ -4,9 +4,6 @@ import userReducer from './userSlice'
 import eventsReducer from './eventsSlice'
 
 
-import eventsReducer from './eventsSlice'
-
-
 const store = configureStore({
     reducer: { 
         user: userReducer,

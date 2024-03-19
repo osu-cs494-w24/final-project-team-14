@@ -34,6 +34,13 @@ export function Header(props) {
             <div id="navigation-container">
                     <img onClick={handlesetUserBox} id="account-image" src="useraccount.png" />
                     {userbox && <Userbox />}
+                </div>
+                <div id="navigation-container">
+                    <NavLink to="/search" id="explore-button">
+                        <div id="explore-button">Explore Events</div>
+                    </NavLink>
+                    <NavLink to="/account" id="account-image-container"><img id="account-image" src="useraccount.png"></img></NavLink>
+                </div>
             </div>
         </div>
     );

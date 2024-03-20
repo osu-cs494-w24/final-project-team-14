@@ -109,11 +109,17 @@ export default function Home() {
     const [eventLocation, setEventLocation] = useState("")
     const [eventURL, setEventURL] = useState("")
     const [eventTime, setEventTime] = useState("")
+    const [eventLat, setEventLat] = useState("")
+    const [eventLon, setEventLon] = useState("")
+
     const [eventDate, setEventDate] = useState("")
     const [renderModal, setRenderModal] = useState(false)
+    const [ eventlist, setEventList] = useState()
     const current_user = useSelector(selectUser)
-    const events = useSelector(selectEvent)
+    const dispatch = useDispatch()
     let event_id
+
+
     const toggleModal = () => {
         setRenderModal(!renderModal)
     }
@@ -143,11 +149,12 @@ export default function Home() {
         });
     };
 
-    const dispatch = useDispatch()
-    //const events = useSelector((state) => state.events.events)
+    const events = useSelector(selectEvent);
+    
+
 
     useEffect(() => {
-        dispatch(fetchEvents())
+        setEventList(dispatch(fetchEvents()))
     }, [dispatch])
 
 
@@ -233,22 +240,25 @@ export default function Home() {
     
             </form>
             <div id="map">
-                    <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
-                        <Map center={mapCenter} zoom={9}>
-                            {events.map((location) => (
-                                <Marker key={location.id} position={{ lat: parseFloat(location.lat), lng: parseFloat(location.long) }} onClick={(event) => {
-                                    setEventDate(location.date)
-                                    setEventLocation(location.location)
-                                    setEventTime(location.time)
-                                    setEventName(location.name)
-                                    setEventURL(location.url)
-                                    setRenderModal(true)
-                                }} />
-                            ))}
-                        </Map>
-                    </APIProvider>
+                <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
+                    <Map center={mapCenter} zoom={9}>
+                        {console.log("==events", events)}
+                        {events.map((event) => (
+                            <Marker key={event.id} position={{ lat: parseFloat(event.event_lat || event.lat), lng: parseFloat(event.event_lon || event.lon) }} onClick={(event) => {
+                                setEventDate(event.event_date)
+                                setEventLocation(event.event_location)
+                                setEventTime(event.event_time)
+                                setEventName(event.event_name)
+                                setEventURL(event.event_url)
+                                setRenderModal(true)
+                                setEventLat(event.event_lat || event.lat)
+                                setEventLat(event.event_lon || event.lon)
+                            }} />
+                        ))}
+                    </Map>
+                </APIProvider>
             </div>
-            <Modal render={renderModal} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
+            <Modal render={renderModal} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} lon = {eventLon} lat = {eventLat} />
             <AddEventButton onClick={toggleForm}>
                 <img src="/map-pin.png" />
             </AddEventButton>

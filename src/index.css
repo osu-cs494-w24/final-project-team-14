@@ -43,6 +43,10 @@ html {
     background-color: white;
 }
 
+#logo {
+    max-width: 78%;
+}
+
 #navigation-container {
     display: flex;
     align-items: center;
@@ -125,7 +129,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 
@@ -336,9 +340,9 @@ html {
 }
 
 .logout:hover {
-    background-color: #2b7bbe;
-    color: white;
-    cursor: pointer;
+  background-color: #f15454;
+  color: white;
+  cursor: pointer;
 }
 
 .login-form {
@@ -376,7 +380,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 
@@ -492,3 +496,4 @@ html {
     font-weight: 100;
     margin: 2px 5px 2px 2px;
 }
+

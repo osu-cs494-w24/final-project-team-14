@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchEvents } from '../redux/eventsSlice'
 import ResultCard from "../components/ResultCard"
-import { selectEvent, getAllEvents, addEvent } from '../redux/eventsSlice'
 
 export default function Search() {
     const [text, setText] = useState("")

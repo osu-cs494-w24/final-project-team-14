@@ -116,7 +116,6 @@ export default function Event() {
 
     let validEvent = event.length != 0
 
-
     return (
         <>
             <NavLink to="/search">
@@ -137,10 +136,10 @@ export default function Event() {
                             <DetailIcon src="/calendar.png" alt="calendar"></DetailIcon>
                             &nbsp;{validEvent && event[0].event_date}
                         </DetailItem>
-
                         <Location>
                             <DetailIcon src="/map-pin.png" alt="pin"></DetailIcon>
                             &nbsp;{validEvent && event[0].event_location}
+
                         </Location>
 
                         <DetailItem>
@@ -151,7 +150,6 @@ export default function Event() {
                     </Details>}
                 </FlexBox3>
             </FlexBox>
-
 
         </>
     )

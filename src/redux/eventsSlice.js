@@ -3,12 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const fetchEvents = createAsyncThunk(
   'events/fetchEvents',
   async () => {
-    const response = await fetch('https://lucky-outpost-400621.uw.r.appspot.com/getevents')
+    const response = await fetch('/events.json')
     const data = await response.json()
     return data
   }
 )
 
+let currId = 16
 const eventsSlice = createSlice({
   name: 'events',
   initialState: {
@@ -18,24 +19,17 @@ const eventsSlice = createSlice({
   },
   reducers: {
     addEvent(state, action) {
-      const { id, event_name, event_location, event_date, event_time, event_url, event_lan, event_lot } = action.payload;
-      const newEvent = {
-        id: id,
-        name: event_name,
-        location: event_location,
-        date: event_date,
-        time: event_time,
-        url: event_url,
-        lan: event_lan,
-        lot: event_lot
-      };
-      return {
-        ...state,
-        events: [...state.events, newEvent]
-      };
-    },
-    getAllEvents(state, action) {
-        return action.payload
+      const { name, location, date, time, url, lat, long } = action.payload
+      state.events.push({
+        id: currId++,
+        name: name,
+        location: location,
+        date: date,
+        time: time,
+        url: url,
+        lat: lat,
+        long: long
+      })
     }
   },
   extraReducers: (builder) => {
@@ -55,5 +49,4 @@ const eventsSlice = createSlice({
 })
 
 export default eventsSlice.reducer
-export const selectEvent = state => state.events.events
-export const { addEvent, getAllEvents } = eventsSlice.actions
+export const { addEvent } = eventsSlice.actions

@@ -15,12 +15,12 @@ export default function Modal({ name, url, id, location, date, time, onClose, re
         <>
             <div id="modal-backdrop"></div>
             <div id="sell-something-modal">
-                <div class="modal-dialog">
-                    <div class="modal-header">
-                        <button type="button" id="modal-close" class="modal-hide-button" onClick={handleModalClose}>&times;</button>
+                <div className="modal-dialog">
+                    <div className="modal-header">
+                        <button type="button" id="modal-close" className="modal-hide-button" onClick={handleModalClose}>&times;</button>
                     </div>
 
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <div className="modal-image-container">
                             <img className="modal-image" src={url} alt="alt" />
                         </div>

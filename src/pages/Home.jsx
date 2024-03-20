@@ -70,7 +70,7 @@ const AddEventButton = styled.button`
   }
   &:hover,
   &:focus {
-    right: 27px;
+    right: 57px;
     bottom: 27px;
     height: 66px;
     width: 66px;

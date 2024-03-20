@@ -218,6 +218,7 @@ export default function Home() {
         });
     
         setShowForm(false);
+        setEventList(dispatch(fetchEvents()))
     };
     
     return (
@@ -242,17 +243,16 @@ export default function Home() {
             <div id="map">
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
                     <Map center={mapCenter} zoom={9}>
-                        {console.log("==events", events)}
-                        {events.map((event) => (
-                            <Marker key={event.id} position={{ lat: parseFloat(event.event_lat || event.lat), lng: parseFloat(event.event_lon || event.lon) }} onClick={(event) => {
-                                setEventDate(event.event_date)
-                                setEventLocation(event.event_location)
-                                setEventTime(event.event_time)
-                                setEventName(event.event_name)
-                                setEventURL(event.event_url)
+                        {events.map((ev) => (
+                            <Marker key={ev.id} position={{ lat: parseFloat(ev.event_lat || ev.lat), lng: parseFloat(ev.event_lon || ev.lon) }} onClick={(event) => {
+                                setEventDate(ev.event_date)
+                                setEventLocation(ev.event_location)
+                                setEventTime(ev.event_time)
+                                setEventName(ev.event_name)
+                                setEventURL(ev.event_url)
                                 setRenderModal(true)
-                                setEventLat(event.event_lat || event.lat)
-                                setEventLat(event.event_lon || event.lon)
+                                setEventLat(ev.event_lat || ev.lat)
+                                setEventLat(ev.event_lon || ev.lon)
                             }} />
                         ))}
                     </Map>

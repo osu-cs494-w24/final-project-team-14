@@ -4,8 +4,9 @@ import { selectUser} from '../redux/userSlice'
 import { loginUser, logoutUser } from '../redux/userSlice'
 
 export default function ResultCard(props) {
-    const dispatch = useDispatch();
-    const current_user = useSelector(selectUser)
+    console.log("Event ID:", props.id);
+    console.log("Event name:", props.name);
+    console.log("Event name:", props.lon);
     return (
         <div className="result-card-container">
             <div className="result-image-container">

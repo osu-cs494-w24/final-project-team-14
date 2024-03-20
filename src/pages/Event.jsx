@@ -100,6 +100,7 @@ const DetailIcon = styled.img`
 `
 
 export default function Event() {
+    // const [event, setEvent] = useState({})
     const params = useParams()
 
 
@@ -109,12 +110,9 @@ export default function Event() {
     useEffect(() => {
         dispatch(fetchEvents())
     }, [dispatch])
+    
+    const event = events.filter(event => event.id == params.eventID)
 
-    const event = events.filter(event => event.id === params.eventID)
-    console.log("==event[params.eventID]: ", events[params.eventID])
-    // console.log("==events: ", events)
-    // console.log("==params.eventID: ", params.eventID)
-    // events.map(event => console.log(event.id))
 
     return (        
         <>
@@ -130,21 +128,21 @@ export default function Event() {
                 </FlexBox2>
 
                 <FlexBox3>
-                    <Name>{event.name}</Name>
+                    <Name>{event[0].name}</Name>
                     <Details>
                        <DetailItem>
                             <DetailIcon src="/calendar.png" alt="calendar"></DetailIcon>
-                            &nbsp;{event.date}
+                            &nbsp;{event[0].date}
                        </DetailItem>
 
                         <Location>
                             <DetailIcon src="/map-pin.png" alt="pin"></DetailIcon>
-                            &nbsp;{event.location}
+                            &nbsp;{event[0].location}
                         </Location>
 
                         <DetailItem>
                             <DetailIcon src="/clock.webp" alt="clock"></DetailIcon>
-                            &nbsp;{event.time}
+                            &nbsp;{event[0].time}
                         </DetailItem>
 
                     </Details>

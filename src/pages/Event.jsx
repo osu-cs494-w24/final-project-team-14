@@ -110,24 +110,20 @@ export default function Event() {
         dispatch(fetchEvents())
     }, [dispatch])
 
-    const event = {
-        id: 1,
-        name: "Apple Pi Meeting",
-        location: "Dixon Recreation Center",
-        date: "March 5th, 2012",
-        time: "6:00pm",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae nulla nunc."
-    }
+    const event = events.filter(event => event.id === params.eventID)
+    console.log("==event[params.eventID]: ", events[params.eventID])
+    // console.log("==events: ", events)
+    // console.log("==params.eventID: ", params.eventID)
+    // events.map(event => console.log(event.id))
 
     return (        
         <>
-
             <NavLink to="/search">
                 <BackButton>
                     <FontAwesomeIcon icon={faArrowLeft} size="3x"></FontAwesomeIcon>
                 </BackButton>
             </NavLink>
-
+            
             <FlexBox>
                 <FlexBox2>
                     <EventImage src="/osu.jpg" alt="Event Image"></EventImage>

@@ -100,6 +100,7 @@ const DetailIcon = styled.img`
 `
 
 export default function Event() {
+    // const [event, setEvent] = useState({})
     const params = useParams()
 
 
@@ -109,46 +110,39 @@ export default function Event() {
     useEffect(() => {
         dispatch(fetchEvents())
     }, [dispatch])
+    
+    const event = events.filter(event => event.id == params.eventID)
 
-    const event = {
-        id: 1,
-        name: "Apple Pi Meeting",
-        location: "Dixon Recreation Center",
-        date: "March 5th, 2012",
-        time: "6:00pm",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae nulla nunc."
-    }
 
     return (        
         <>
-
             <NavLink to="/search">
                 <BackButton>
                     <FontAwesomeIcon icon={faArrowLeft} size="3x"></FontAwesomeIcon>
                 </BackButton>
             </NavLink>
-
+            
             <FlexBox>
                 <FlexBox2>
                     <EventImage src="/osu.jpg" alt="Event Image"></EventImage>
                 </FlexBox2>
 
                 <FlexBox3>
-                    <Name>{event.name}</Name>
+                    <Name>{event[0].name}</Name>
                     <Details>
                        <DetailItem>
                             <DetailIcon src="/calendar.png" alt="calendar"></DetailIcon>
-                            &nbsp;{event.date}
+                            &nbsp;{event[0].date}
                        </DetailItem>
 
                         <Location>
                             <DetailIcon src="/map-pin.png" alt="pin"></DetailIcon>
-                            &nbsp;{event.location}
+                            &nbsp;{event[0].location}
                         </Location>
 
                         <DetailItem>
                             <DetailIcon src="/clock.webp" alt="clock"></DetailIcon>
-                            &nbsp;{event.time}
+                            &nbsp;{event[0].time}
                         </DetailItem>
 
                     </Details>

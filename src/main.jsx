@@ -13,7 +13,6 @@ import './index.css'
 
 import Search from './pages/Search'
 import Event from './pages/Event'
-import Feed from './pages/Feed'
 import ErrorPage from './pages/ErrorPage'
 
 import './index.css'
@@ -29,7 +28,6 @@ const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: "signup", element: <SignUp/>},
             { path: "search", element: <Search /> },
-            { path: "events", element: <Feed /> },
             { path: "events/:eventID", element: <Event /> }
         ]
     }

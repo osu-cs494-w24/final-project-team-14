@@ -94,7 +94,7 @@ html {
 
 #map {
     width: 100%;
-    height: 85vh;
+    height: calc(100vh - 75px;
 }
 
 .search-container {
@@ -346,12 +346,6 @@ html {
   margin-top: 2rem;
 }
 /* login page */
-
-
-#map {
-    width: 100%;
-    height: 500px;
-}
 
 .search-container {
     display: flex;

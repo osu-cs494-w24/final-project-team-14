@@ -100,56 +100,57 @@ const DetailIcon = styled.img`
 `
 
 export default function Event() {
-    // const [event, setEvent] = useState({})
     const params = useParams()
 
 
     const dispatch = useDispatch()
-    const events = useSelector((state) => state.events.events)
 
     useEffect(() => {
         dispatch(fetchEvents())
     }, [dispatch])
-    
+
+    const events = useSelector((state) => state.events.events)
+
     const event = events.filter(event => event.id == params.eventID)
+    console.log("Events: ", events)
 
+    let validEvent = event.length != 0
 
-    return (        
+    return (
         <>
             <NavLink to="/search">
                 <BackButton>
                     <FontAwesomeIcon icon={faArrowLeft} size="3x"></FontAwesomeIcon>
                 </BackButton>
             </NavLink>
-            
+
             <FlexBox>
                 <FlexBox2>
-                    <EventImage src="/osu.jpg" alt="Event Image"></EventImage>
+                    <EventImage src={validEvent ? `/osu.jpg` : `https://media1.tenor.com/m/x8v1oNUOmg4AAAAd/rickroll-roll.gif`} alt="Event Image"></EventImage>
                 </FlexBox2>
 
                 <FlexBox3>
-                    <Name>{event[0].name}</Name>
-                    <Details>
-                       <DetailItem>
+                    <Name>{validEvent && event[0].event_name}{!validEvent && `Looks like that Event doesn't exist...`}</Name>
+                    {validEvent && <Details>
+                        <DetailItem>
                             <DetailIcon src="/calendar.png" alt="calendar"></DetailIcon>
-                            &nbsp;{event[0].date}
-                       </DetailItem>
-
+                            &nbsp;{validEvent && event[0].event_date}
+                        </DetailItem>
                         <Location>
                             <DetailIcon src="/map-pin.png" alt="pin"></DetailIcon>
-                            &nbsp;{event[0].location}
+                            &nbsp;{validEvent && event[0].event_location}
+
                         </Location>
 
                         <DetailItem>
                             <DetailIcon src="/clock.webp" alt="clock"></DetailIcon>
-                            &nbsp;{event[0].time}
+                            &nbsp;{validEvent && event[0].event_time}
                         </DetailItem>
 
-                    </Details>
+                    </Details>}
                 </FlexBox3>
             </FlexBox>
 
-           
         </>
     )
 }

@@ -135,14 +135,14 @@ export default function Home() {
         <MapContainer>
             <div id="map">
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
-                    <Map center={mapCenter} zoom={9}>
+                    <Map center={mapCenter} defaultZoom={9}>
                         {events.map((location, index) => (
-                            <Marker key={index} position={{ lat: parseFloat(location.lat), lng: parseFloat(location.long) }} onClick={(event) => {
-                                setEventDate(location.date)
-                                setEventLocation(location.location)
-                                setEventTime(location.time)
-                                setEventName(location.name)
-                                setEventURL(location.url)
+                            <Marker key={index} position={{ lat: parseFloat(location.event_lat), lng: parseFloat(location.event_lon) }} onClick={(event) => {
+                                setEventDate(location.event_date)
+                                setEventLocation(location.event_location)
+                                setEventTime(location.event_time)
+                                setEventName(location.event_name)
+                                setEventURL(location.event_url)
                                 setEventID(location.id)
                                 setRenderModal(true)
                             }} />
@@ -157,19 +157,19 @@ export default function Home() {
                 <EventForm>
                     <h2>Add New Event</h2>
                     <label >Event Name:</label>
-                    <input value={eventName} onChange={(e) => setEventName(e.target.value)}/>
+                    <input value={eventName} onChange={(e) => setEventName(e.target.value)} />
                     <label>Location Name:</label>
-                    <input value={eventLocation} onChange={(e) => setEventLocation(e.target.value)}/>
+                    <input value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
                     <label>Date:</label>
-                    <input value={eventDate} onChange={(e) => setEventDate(e.target.value)}/>
+                    <input value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
                     <label>Time:</label>
-                    <input value={eventTime} onChange={(e) => setEventTime(e.target.value)}/>
+                    <input value={eventTime} onChange={(e) => setEventTime(e.target.value)} />
                     <label>Image URL:</label>
-                    <input value={eventURL} onChange={(e) => setEventURL(e.target.value)}/>
+                    <input value={eventURL} onChange={(e) => setEventURL(e.target.value)} />
                     <label>Latitude:</label>
-                    <input value={eventLat} onChange={(e) => setEventLat(e.target.value)}/>
+                    <input value={eventLat} onChange={(e) => setEventLat(e.target.value)} />
                     <label>Longitude:</label>
-                    <input value={eventLong} onChange={(e) => seteventLong(e.target.value)}/>
+                    <input value={eventLong} onChange={(e) => seteventLong(e.target.value)} />
                     <button onClick={() => {
                         dispatch(addEvent({
                             name: eventName,

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom"
 import { useState } from "react"
 
 export default function Modal({ name, url, id, location, date, time, onClose, render }) {
+    console.log("==", name)
     const handleModalClose = () => {
         onClose()
     }

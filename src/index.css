@@ -52,12 +52,13 @@ html {
 }
 
 #navigation-container img {
-    margin-bottom: 20px; /* 이미지 아래 여백 설정 */
+    margin-bottom: 20px;
+    /* 이미지 아래 여백 설정 */
 }
 
 #navigation-container a {
     width: 60px;
-    height: 70%;    
+    height: 70%;
     max-height: 60%;
 }
 
@@ -94,7 +95,7 @@ html {
 
 #map {
     width: 100%;
-    height: 500px;
+    height: calc(100vh - 75px);
 }
 
 .search-container {
@@ -321,37 +322,32 @@ html {
 
 /* login page */
 .login-page {
-  display: inline-block;
-  padding: 1rem;
+    display: inline-block;
+    padding: 1rem;
 }
 
-.logout{
-  border: 1px solid #ababab;
-  text-align: center;
-  font-size: 1.5rem;
-  background-color: rgb(184, 184, 184);
-  border-radius: .5rem;
-  
+.logout {
+    border: 1px solid #ababab;
+    text-align: center;
+    font-size: 1.5rem;
+    background-color: rgb(184, 184, 184);
+    border-radius: .5rem;
+
 }
 
 .logout:hover {
-  background-color: #2b7bbe;
-  color: white;
-  cursor: pointer;
+    background-color: #2b7bbe;
+    color: white;
+    cursor: pointer;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
 }
+
 /* login page */
-
-
-#map {
-    width: 100%;
-    height: 500px;
-}
 
 .search-container {
     display: flex;

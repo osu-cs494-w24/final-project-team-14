@@ -5,7 +5,7 @@ import ResultCard from "../components/ResultCard"
 import { selectEvent, getAllEvents, addEvent } from '../redux/eventsSlice'
 
 export default function Search() {
-    const [ text, setText ] = useState("")
+    const [text, setText] = useState("")
     const [query, setQuery] = useState("")
 
     const dispatch = useDispatch()
@@ -16,11 +16,11 @@ export default function Search() {
     useEffect(() => {
         dispatch(fetchEvents())
     }, [dispatch])
-    
+
     return (
         <>
             <div className="search-container">
-            <form onSubmit={e => {
+                <form onSubmit={e => {
                     e.preventDefault()
                 }}>
                     <input
@@ -32,9 +32,9 @@ export default function Search() {
                 </form>
             </div>
             <div className="results-container">
-            {console.log("First event:", events[0])}
-            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
-                    <ResultCard 
+                {console.log("First event:", events[0])}
+                {events.filter(event => query === "" || event.event_name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
+                    <ResultCard
                         key={event.id}
                         id={event.id}
                         url={event.event_url}
@@ -44,7 +44,7 @@ export default function Search() {
                         time={event.event_time}
                     />
                 ))
-            }
+                }
             </div>
         </>
     )

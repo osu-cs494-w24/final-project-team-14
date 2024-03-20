@@ -27,7 +27,7 @@ export function Header(props) {
                 <NavLink to="/search" id="explore-button">
                     <div id="explore-button">Explore Events</div>
                 </NavLink>
-                <NavLink to="/signup" id="account-image-container"><img id="account-image" src="useraccount.png"></img></NavLink>
+                <NavLink to="/signup" id="account-image-container"><img id="account-image" src="/useraccount.png"></img></NavLink>
             </div>
         </div>
     );

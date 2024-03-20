@@ -98,7 +98,7 @@ html {
 
 #map {
     width: 100%;
-    height: 500px;
+    height: calc(100vh - 75px);
 }
 
 .search-container {
@@ -128,7 +128,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 
@@ -351,12 +351,6 @@ html {
 }
 /* login page */
 
-
-#map {
-    width: 100%;
-    height: 500px;
-}
-
 .search-container {
     display: flex;
     justify-content: center;
@@ -384,7 +378,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 

@@ -56,7 +56,7 @@ const SearchBarInput = styled.input`
 
 const AddEventButton = styled.button`
   position: fixed;
-  right: 30px;
+  right: 60px;
   bottom: 30px;
   height: 60px;
   width: 60px;
@@ -71,7 +71,7 @@ const AddEventButton = styled.button`
   }
   &:hover,
   &:focus {
-    right: 27px;
+    right: 57px;
     bottom: 27px;
     height: 66px;
     width: 66px;
@@ -88,15 +88,22 @@ const EventForm = styled.form`
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items:flex-start;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    h2 {
+        text-align: center;
+    }
     label {
-        margin-left: 0.5rem;
+        display: block;
+        margin-bottom: 5px;
     }
     input {
-        width: 100px;
+        width: calc(100% - 10px); 
+        padding: 5px; 
+        margin-bottom: 10px;
+        display: block;
+    }
+    button {
+        margin: 5px;
     }
 `
 
@@ -111,14 +118,13 @@ export default function Home() {
     const [eventTime, setEventTime] = useState("")
     const [eventLat, setEventLat] = useState("")
     const [eventLon, setEventLon] = useState("")
-
+    const [eventID, setEventID] = useState("")
     const [eventDate, setEventDate] = useState("")
     const [renderModal, setRenderModal] = useState(false)
     const [ eventlist, setEventList] = useState()
     const current_user = useSelector(selectUser)
     const dispatch = useDispatch()
     let event_id
-
 
     const toggleModal = () => {
         setRenderModal(!renderModal)
@@ -139,8 +145,6 @@ export default function Home() {
         setShowForm(prevShowForm => !prevShowForm);
     };
 
-
-
     const handleChange = (e) => {
         const { id, value } = e.target;
         setFormData({
@@ -148,11 +152,8 @@ export default function Home() {
             [id]: value
         });
     };
-
     const events = useSelector(selectEvent);
-    
-
-
+   
     useEffect(() => {
         setEventList(dispatch(fetchEvents()))
     }, [dispatch])
@@ -222,23 +223,6 @@ export default function Home() {
     
     return (
         <MapContainer>
-            <form onSubmit={(e) => {
-                e.preventDefault()
-                console.log("Place query: ", text)
-                setQuery(text)
-            }}>
-                <SearchBarContainer>
-    
-                    <MagnifyingGlassIcon icon={faMagnifyingGlass} />
-                    <SearchBarInput
-                        value={text}
-                        placeholder={`Enter a city or zipcode...`}
-                        onChange={(e) => setText(e.target.value)}>
-                    </SearchBarInput>
-    
-                </SearchBarContainer>
-    
-            </form>
             <div id="map">
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
                     <Map center={mapCenter} zoom={9}>
@@ -277,7 +261,6 @@ export default function Home() {
             </EventForm>
         }
         </MapContainer>
-    
     )
 }
 

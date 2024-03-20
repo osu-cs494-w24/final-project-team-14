@@ -2,8 +2,10 @@ import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './userSlice'
 import eventsReducer from './eventsSlice'
 
+import eventsReducer from './eventsSlice'
+
+
 const store = configureStore({
-    // one argument : option
     reducer: { 
         user: userReducer,
         events: eventsReducer
@@ -11,6 +13,6 @@ const store = configureStore({
 })
 
 store.subscribe(() => {
-    console.log("== user ", store.getState())
+    console.log("== state ", store.getState())
 })
 export default store

@@ -9,6 +9,7 @@ export const fetchEvents = createAsyncThunk(
   }
 )
 
+let currId = 16
 const eventsSlice = createSlice({
   name: 'events',
   initialState: {

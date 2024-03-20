@@ -13,42 +13,9 @@ import { loginUser, logoutUser } from '../redux/userSlice'
 export default function Search() {
     const [ text, setText ] = useState("")
     const [query, setQuery] = useState("")
-
-    //const events = useSelector((state) => state.events.events)
-
-    // current user
     const dispatch = useDispatch()
-    
-    /*
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://lucky-outpost-400621.uw.r.appspot.com/getevents', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("==getData", data);
-                    dispatch(getAllEvents(data)); // dispatch 이후에 return 배치
-                    setEvents(data); // events 상태 업데이트
-                    console.log("Success!");
-                } else {
-                    console.error('Failed to fetch data');
-                }
-            } catch (error) {
-                console.error('Error while fetching data:', error);
-            }
-        }
-        fetchData(); // 컴포넌트가 처음 렌더링될 때만 데이터를 가져옴
-        dispatch(fetchEvents())
-    }, [dispatch])
-    */
-
     const events = useSelector(selectEvent);
+
 
     useEffect(() => {
         dispatch(fetchEvents())
@@ -69,9 +36,9 @@ export default function Search() {
                 </form>
             </div>
             <div className="results-container">
-            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
+            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event, index) => (
                     <ResultCard 
-                        key={event.id}
+                        key={index}
                         id={event.id}
                         url={event.url}
                         name={event.name}

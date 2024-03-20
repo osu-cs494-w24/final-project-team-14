@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { fetchEvents } from '../redux/eventsSlice'
+import { fetchEvents, addEvent } from '../redux/eventsSlice'
 import styled from '@emotion/styled'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -87,28 +87,36 @@ const EventForm = styled.form`
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items:flex-start;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    h2 {
+        text-align: center;
+    }
     label {
-        margin-left: 0.5rem;
+        display: block;
+        margin-bottom: 5px;
     }
     input {
-        width: 100px;
+        width: calc(100% - 10px); 
+        padding: 5px; 
+        margin-bottom: 10px;
+        display: block;
+    }
+    button {
+        margin: 5px;
     }
 `
 
 export default function Home() {
-    const [text, setText] = useState("")
-    const [query, setQuery] = useState("Oregon+State+University,Corvallis,OR")
+    const [eventID, setEventID] = useState("")
     const [eventName, setEventName] = useState("")
     const [eventLocation, setEventLocation] = useState("")
-    const [eventURL, setEventURL] = useState("")
-    const [eventTime, setEventTime] = useState("")
     const [eventDate, setEventDate] = useState("")
-    const [eventID, setEventID] = useState("")
+    const [eventTime, setEventTime] = useState("")
+    const [eventURL, setEventURL] = useState("")
+    const [eventLat, setEventLat] = useState("")
+    const [eventLong, seteventLong] = useState("")
     const [renderModal, setRenderModal] = useState(false)
+    const [showForm, setShowForm] = useState(false)
     const toggleModal = () => {
         setRenderModal(!renderModal)
     }
@@ -116,7 +124,6 @@ export default function Home() {
 
     const dispatch = useDispatch()
     const events = useSelector((state) => state.events.events)
-    console.log("Events: ", events)
 
     useEffect(() => {
         dispatch(fetchEvents())
@@ -126,28 +133,11 @@ export default function Home() {
 
     return (
         <MapContainer>
-            <form onSubmit={(e) => {
-                e.preventDefault()
-                console.log("Place query: ", text)
-                setQuery(text)
-            }}>
-                <SearchBarContainer>
-
-                    <MagnifyingGlassIcon icon={faMagnifyingGlass} />
-                    <SearchBarInput
-                        value={text}
-                        placeholder={`Enter a city or zipcode...`}
-                        onChange={(e) => setText(e.target.value)}>
-                    </SearchBarInput>
-
-                </SearchBarContainer>
-
-            </form>
             <div id="map">
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
                     <Map center={mapCenter} zoom={9}>
-                        {events.map((location) => (
-                            <Marker key={location.id} position={{ lat: parseFloat(location.lat), lng: parseFloat(location.long) }} onClick={(event) => {
+                        {events.map((location, index) => (
+                            <Marker key={index} position={{ lat: parseFloat(location.lat), lng: parseFloat(location.long) }} onClick={(event) => {
                                 setEventDate(location.date)
                                 setEventLocation(location.location)
                                 setEventTime(location.time)
@@ -160,8 +150,58 @@ export default function Home() {
                     </Map>
                 </APIProvider>
             </div>
+            <AddEventButton onClick={() => setShowForm(true)} >
+                <img src="/map-pin.png" />
+            </AddEventButton>
+            {showForm &&
+                <EventForm>
+                    <h2>Add New Event</h2>
+                    <label >Event Name:</label>
+                    <input value={eventName} onChange={(e) => setEventName(e.target.value)}/>
+                    <label>Location Name:</label>
+                    <input value={eventLocation} onChange={(e) => setEventLocation(e.target.value)}/>
+                    <label>Date:</label>
+                    <input value={eventDate} onChange={(e) => setEventDate(e.target.value)}/>
+                    <label>Time:</label>
+                    <input value={eventTime} onChange={(e) => setEventTime(e.target.value)}/>
+                    <label>Image URL:</label>
+                    <input value={eventURL} onChange={(e) => setEventURL(e.target.value)}/>
+                    <label>Latitude:</label>
+                    <input value={eventLat} onChange={(e) => setEventLat(e.target.value)}/>
+                    <label>Longitude:</label>
+                    <input value={eventLong} onChange={(e) => seteventLong(e.target.value)}/>
+                    <button onClick={() => {
+                        dispatch(addEvent({
+                            name: eventName,
+                            location: eventLocation,
+                            date: eventDate,
+                            time: eventTime,
+                            url: eventURL,
+                            lat: eventLat,
+                            long: eventLong,
+                        }))
+                        setEventName("")
+                        setEventLocation("")
+                        setEventDate("")
+                        setEventTime("")
+                        setEventURL("")
+                        setEventLat("")
+                        seteventLong("")
+                        setShowForm(false)
+                    }}>Submit</button>
+                    <button onClick={() => {
+                        setEventName("")
+                        setEventLocation("")
+                        setEventDate("")
+                        setEventTime("")
+                        setEventURL("")
+                        setEventLat("")
+                        seteventLong("")
+                        setShowForm(false)
+                    }}>Close</button>
+                </EventForm>
+            }
             <Modal render={renderModal} id={eventID} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
-
         </MapContainer>
 
     )

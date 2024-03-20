@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchEvents } from '../redux/eventsSlice'
 import ResultCard from "../components/ResultCard"
-import { selectEvent, getAllEvents, addEvent } from '../redux/eventsSlice'
 
 // add user
 import { selectUser} from '../redux/userSlice'
@@ -13,9 +12,12 @@ import { loginUser, logoutUser } from '../redux/userSlice'
 export default function Search() {
     const [ text, setText ] = useState("")
     const [query, setQuery] = useState("")
-    const dispatch = useDispatch()
-    const events = useSelector(selectEvent);
+    const events = useSelector((state) => state.events.events)
 
+    // current user
+    const dispatch = useDispatch()
+    const current_user = useSelector(selectUser)
+    
 
     useEffect(() => {
         dispatch(fetchEvents())
@@ -36,9 +38,9 @@ export default function Search() {
                 </form>
             </div>
             <div className="results-container">
-            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event, index) => (
+            {events.filter(event => query === "" || event.name.replace(/\s/g, '').toLowerCase().includes(query.replace(/\s/g, '').toLowerCase())).map((event) => (
                     <ResultCard 
-                        key={index}
+                        key={event.id}
                         id={event.id}
                         url={event.url}
                         name={event.name}

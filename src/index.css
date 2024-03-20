@@ -43,6 +43,10 @@ html {
     background-color: white;
 }
 
+#logo {
+    max-width: 78%;
+}
+
 #navigation-container {
     display: flex;
     align-items: center;
@@ -124,7 +128,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 
@@ -335,7 +339,7 @@ html {
 }
 
 .logout:hover {
-  background-color: #2b7bbe;
+  background-color: #f15454;
   color: white;
   cursor: pointer;
 }
@@ -374,7 +378,7 @@ html {
     margin-left: 10px;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #f15454;
     }
 }
 

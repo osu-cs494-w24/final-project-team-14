@@ -135,7 +135,7 @@ export default function Home() {
         <MapContainer>
             <div id="map">
                 <APIProvider apiKey={import.meta.env.VITE_GOOGLEMAPS_KEY}>
-                    <Map center={mapCenter} defaultZoom={9}>
+                    <Map defaultCenter={mapCenter} defaultZoom={9}>
                         {events.map((location, index) => (
                             <Marker key={index} position={{ lat: parseFloat(location.event_lat), lng: parseFloat(location.event_lon) }} onClick={(event) => {
                                 setEventDate(location.event_date)

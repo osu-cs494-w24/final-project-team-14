@@ -107,6 +107,7 @@ export default function Home() {
     const [eventURL, setEventURL] = useState("")
     const [eventTime, setEventTime] = useState("")
     const [eventDate, setEventDate] = useState("")
+    const [eventID, setEventID] = useState("")
     const [renderModal, setRenderModal] = useState(false)
     const toggleModal = () => {
         setRenderModal(!renderModal)
@@ -152,13 +153,14 @@ export default function Home() {
                                 setEventTime(location.time)
                                 setEventName(location.name)
                                 setEventURL(location.url)
+                                setEventID(location.id)
                                 setRenderModal(true)
                             }} />
                         ))}
                     </Map>
                 </APIProvider>
             </div>
-            <Modal render={renderModal} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
+            <Modal render={renderModal} id={eventID} onClose={toggleModal} name={eventName} location={eventLocation} date={eventDate} time={eventTime} url={eventURL} />
 
         </MapContainer>
 

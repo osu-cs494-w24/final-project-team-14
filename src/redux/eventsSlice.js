@@ -9,6 +9,7 @@ export const fetchEvents = createAsyncThunk(
   }
 )
 
+let currId = 16
 const eventsSlice = createSlice({
   name: 'events',
   initialState: {
@@ -18,14 +19,16 @@ const eventsSlice = createSlice({
   },
   reducers: {
     addEvent(state, action) {
-      const { id, name, location, date, time, url } = action.payload
+      const { name, location, date, time, url, lat, long } = action.payload
       state.events.push({
-        id: id,
+        id: currId++,
         name: name,
         location: location,
         date: date,
         time: time,
-        url: url
+        url: url,
+        lat: lat,
+        long: long
       })
     }
   },

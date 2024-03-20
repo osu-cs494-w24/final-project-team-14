@@ -12,6 +12,6 @@ const store = configureStore({
 })
 
 store.subscribe(() => {
-    console.log("== user ", store.getState())
+    console.log("== state ", store.getState())
 })
 export default store

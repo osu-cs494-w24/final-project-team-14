@@ -55,7 +55,7 @@ const SearchBarInput = styled.input`
 
 const AddEventButton = styled.button`
   position: fixed;
-  right: 30px;
+  right: 60px;
   bottom: 30px;
   height: 60px;
   width: 60px;

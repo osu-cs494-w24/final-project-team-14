@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const fetchEvents = createAsyncThunk(
   'events/fetchEvents',
   async () => {
-    const response = await fetch('/events.json')
+    const response = await fetch('https://lucky-outpost-400621.uw.r.appspot.com/getevents')
     const data = await response.json()
     return data
   }
@@ -14,8 +14,8 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState: {
     status: 'idle',
-    error: null, 
-    events: [] 
+    error: null,
+    events: []
   },
   reducers: {
     addEvent(state, action) {

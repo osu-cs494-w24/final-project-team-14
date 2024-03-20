@@ -10,7 +10,7 @@ export default function Search() {
     const dispatch = useDispatch()
 
 
-    const events = useSelector(selectEvent);
+    const events = useSelector((state) => state.events.events);
 
     useEffect(() => {
         dispatch(fetchEvents())

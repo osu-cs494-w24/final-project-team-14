@@ -21,7 +21,7 @@ export function Header(props) {
     return (
         <div id="header-container">
             <div id="title-container">
-                <NavLink id="site-title" to="/"><img id="logo" src="Logo.png"/></NavLink>
+                <NavLink id="site-title" to="/"><img id="logo" src="/Logo.png" /></NavLink>
             </div>
             <div id="navigation-container">
                 <NavLink to="/search" id="explore-button">

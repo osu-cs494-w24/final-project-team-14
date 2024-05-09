@@ -1,14 +1,27 @@
 {
   "name": "final-project",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "cs 494 final project",
   "type": "module",
+  "main": "dist/index.umd.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+        "require": "./dist/index.umd.cjs"
+      }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview --port 8080"
   },
   "dependencies": {
     "@emotion/core": "^11.0.0",

@@ -6,6 +6,38 @@ import { selectUser} from '../redux/userSlice'
 import { loginUser, logoutUser } from '../redux/userSlice'
 
 
+function generateRandomState() {
+    // 32자리 랜덤 문자열 생성
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const length = 32;
+    let state = '';
+    for (let i = 0; i < length; i++) {
+      state += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return state;
+  }
+
+  function getCsrfToken() {
+    // Set CSRF token cookie name (adjust if needed)
+    const csrfCookieName = 'csrf_token';
+  
+    // Try to get the CSRF token from cookies
+    const cookies = document.cookie.split(';');
+    for (const cookie of cookies) {
+      const parts = cookie.split('=');
+      if (parts[0].trim() === csrfCookieName) {
+        return parts[1].trim();
+      }
+    }
+  
+    // If token not found, log an error and consider alternative actions
+    console.error('CSRF token not found in cookies. Check backend configuration or cookie settings.');
+    // Optionally, redirect to a login page or display an error message to the user.
+  
+    // Throw an error for further debugging (optional)
+    // throw new Error('CSRF token not found in cookies');
+  }
+
 const generateState = async () => {
     try {
         const response = await fetch('http://localhost:8000/api/generate-state')
@@ -75,6 +107,28 @@ const SignUp = () => {
         });
     };
 
+    const handleGoogleSignInClick = () => {
+        fetch("http://localhost:8000/signup", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+    };
+    
+    const handleSignUp = async () => {
+        try {
+            const state = generateRandomState(); // 랜덤 상태 값 생성
+            const csrfToken = getCsrfToken(); // CSRF 토큰 얻기
+            const redirectUrl = `http://localhost:8000/signup?state=${state}&csrf_token=${csrfToken}`;
+            window.location.href = redirectUrl;
+        } catch (error) {
+            console.error('Error during sign-up:', error);
+        }
+    };
+    
+
     return (
         <>
             {loggedIn ? (
@@ -91,6 +145,12 @@ const SignUp = () => {
                         <input type="password" name="password" value={formData.password} onChange={handleChange} />
                         <button>Login</button>
                     </form>
+                    <div>
+                        <p>***Use this email and password***</p>
+                        <p>ohjeo@oregonstate.edu</p>
+                        <p>Wjdanr90!</p>
+                    </div>
+                    {/*<button onClick={handleSignUp}>Sign Up</button> */}
                 </div>
             )}
         </>
